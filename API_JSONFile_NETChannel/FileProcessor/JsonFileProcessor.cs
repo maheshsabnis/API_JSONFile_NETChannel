@@ -28,6 +28,7 @@ namespace API_JSONFile_NETChannel.FileProcessor
 
         private async Task InsertProductsIntoDatabaseAsync(List<ProductInfo> products)
         {
+            Task.Delay(7000).Wait();
             await ctx.ProductInfos.AddRangeAsync(products);
             await ctx.SaveChangesAsync();
         }
