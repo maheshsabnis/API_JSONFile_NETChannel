@@ -1,5 +1,6 @@
 using API_JSONFile_NETChannel;
 using API_JSONFile_NETChannel.FileProcessor;
+using API_JSONFile_NETChannel.Middlewares;
 using API_JSONFile_NETChannel.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Channels;
@@ -35,8 +36,10 @@ if (app.Environment.IsDevelopment())
         });
 }
 
+
 app.UseHttpsRedirection();
 app.UseAntiforgery(); // Add this line here
+//app.UseAppException();
 
 app.MapGet("/wf", () =>
 {
