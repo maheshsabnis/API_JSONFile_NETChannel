@@ -39,7 +39,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAntiforgery(); // Add this line here
-//app.UseAppException();
+ app.UseAppException();
 
 app.MapGet("/wf", () =>
 {
