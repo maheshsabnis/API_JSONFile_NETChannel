@@ -58,7 +58,20 @@ app.MapPost("/upload", async (IFormFileCollection files, ChannellingJob channell
     {
         if (file.Length > 0)
         {
-            var filePath = Path.Combine("uploads", file.FileName);
+            //var filePath = Path.Combine("uploads", file.FileName);
+              var filePath = Path.Combine("uploads");
+
+                 string fileName = Path.GetFileName(file.FileName);
+             
+                var fileExtension = Path.GetExtension(fileName);
+                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+                var counter = Guid.NewGuid();
+
+                var newFileName = $"{fileNameWithoutExtension}_{counter}{fileExtension}";
+                 
+                filePath = Path.Combine(filePath, newFileName);
+
+
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);

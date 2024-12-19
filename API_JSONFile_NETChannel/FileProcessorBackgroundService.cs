@@ -37,7 +37,7 @@ namespace API_JSONFile_NETChannel
                 catch (Exception ex)
                 {
                     // Log the exception or handle it accordingly
-                    throw;
+                   throw;
                 }
 
                 // Wait for a specified interval before checking again
