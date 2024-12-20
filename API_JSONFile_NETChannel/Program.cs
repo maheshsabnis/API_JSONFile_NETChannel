@@ -41,11 +41,7 @@ app.UseHttpsRedirection();
 app.UseAntiforgery(); // Add this line here
  app.UseAppException();
 
-app.MapGet("/wf", () =>
-{
-    return Results.Ok();
-})
-.WithName("GetWeatherForecast");
+ 
 
 app.MapPost("/upload", async (IFormFileCollection files, ChannellingJob channellingJob) =>
 {
@@ -61,7 +57,6 @@ app.MapPost("/upload", async (IFormFileCollection files, ChannellingJob channell
     {
         if (file.Length > 0)
         {
-            //var filePath = Path.Combine("uploads", file.FileName);
               var filePath = Path.Combine("uploads");
 
                  string fileName = Path.GetFileName(file.FileName);
@@ -80,6 +75,7 @@ app.MapPost("/upload", async (IFormFileCollection files, ChannellingJob channell
                 await file.CopyToAsync(stream);
             }
             filePaths.Add(filePath);
+            // The Producer
             await channellingJob.EnqueueFileAsync(filePath);
         }
     }

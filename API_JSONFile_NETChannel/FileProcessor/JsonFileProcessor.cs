@@ -1,10 +1,5 @@
 ﻿using API_JSONFile_NETChannel.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.IO;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace API_JSONFile_NETChannel.FileProcessor
 {
@@ -18,21 +13,32 @@ namespace API_JSONFile_NETChannel.FileProcessor
             await InsertProductsIntoDatabaseAsync(products);
             MoveFileToProcessedFolder(file);
         }
-
+        /// <summary>
+        /// Read JSON file and Deserialize into the List of ProductInfo class
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         private async Task<List<ProductInfo>> ReadJsonFileAsync(string filePath)
         {
             using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             var products = await JsonSerializer.DeserializeAsync<List<ProductInfo>>(stream);
             return products ?? new List<ProductInfo>();
         }
-
+        /// <summary>
+        /// Insert ProductInfo List into the ProductInfo Table
+        /// </summary>
+        /// <param name="products"></param>
+        /// <returns></returns>
         private async Task InsertProductsIntoDatabaseAsync(List<ProductInfo> products)
         {
             Task.Delay(7000).Wait();
             await ctx.ProductInfos.AddRangeAsync(products);
             await ctx.SaveChangesAsync();
         }
-
+        /// <summary>
+        /// Once the JSON file's data is inserted into the Table Move the file to 'processedFiles' folder 
+        /// </summary>
+        /// <param name="filePath"></param>
         private void MoveFileToProcessedFolder(string filePath)
         {
             var fileName = Path.GetFileName(filePath);

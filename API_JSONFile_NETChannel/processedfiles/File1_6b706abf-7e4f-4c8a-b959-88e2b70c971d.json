@@ -1,0 +1,30 @@
+[
+    {
+        "ProductId":"Prod-0001",
+        "ProductName":"Product-1",
+        "CategoryName":"Category1",
+        "Description":"Some Product",
+        "UnitPrice":10000
+    },
+    {
+        "ProductId":"Prod-0002",
+        "ProductName":"Product-2",
+        "CategoryName":"Category2",
+        "Description":"Some Product",
+        "UnitPrice":11000
+    },
+    {
+        "ProductId":"Prod-0003",
+        "ProductName":"Product-3",
+        "CategoryName":"Category1",
+        "Description":"Some Product",
+        "UnitPrice":12000
+    },
+    {
+        "ProductId":"Prod-0004",
+        "ProductName":"Product-4",
+        "CategoryName":"Category2",
+        "Description":"Some Product",
+        "UnitPrice":13000
+    }
+] 

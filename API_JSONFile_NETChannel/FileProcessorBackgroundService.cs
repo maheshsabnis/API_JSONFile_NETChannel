@@ -1,11 +1,13 @@
 ﻿
 using API_JSONFile_NETChannel.FileProcessor;
-using API_JSONFile_NETChannel.Models;
-using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Channels;
 
 namespace API_JSONFile_NETChannel
 {
+
+    /// <summary>
+    /// The Consumer
+    /// </summary>
     public class FileProcessorBackgroundService : BackgroundService
     {
           private readonly IServiceProvider _serviceProvider;
@@ -16,6 +18,11 @@ namespace API_JSONFile_NETChannel
             _channel = channel;
         }
 
+        /// <summary>
+        /// Method to Consume data from Channel by invoking the DequeueFilesAsync() method 
+        /// </summary>
+        /// <param name="stoppingToken"></param>
+        /// <returns></returns>
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
            while (!stoppingToken.IsCancellationRequested)
@@ -24,9 +31,8 @@ namespace API_JSONFile_NETChannel
                 {
                     using (var scope = _serviceProvider.CreateScope())
                     {
-                        var ctx = scope.ServiceProvider.GetRequiredService<EcommContext>();
                         var jsonFileProcessor = scope.ServiceProvider.GetRequiredService<JsonFileProcessor>();
-                        var channellingJob = new ChannellingJob(ctx, jsonFileProcessor, _channel);
+                        var channellingJob = new ChannellingJob(jsonFileProcessor, _channel);
                         // Conditional execution
                         if (ShouldExecute())
                         {
